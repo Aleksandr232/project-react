@@ -1,9 +1,16 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { useSearchUsersQuery } from "../store/github/github.api";
+import { useDebaunce } from "../hooks/debaunce";
 
 export function Home() {
   const [search, setSearch] =useState('')
   const { isLoading, isError, data } = useSearchUsersQuery("Aleksandr232");
+  const debaunced = useDebaunce(search)
+      
+  useEffect(()=>{
+    console.log(debaunced)
+  },[debaunced])
+
 
   return (
     <div className="flex justify-center pt-10 mx-auto h-screen w-screen">
