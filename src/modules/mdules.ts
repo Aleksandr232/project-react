@@ -20,8 +20,8 @@ export interface IUser {
     score: number;
 }
 
-export interface Server {
+export interface Server<T> {
     total_count: number;
     incomplete_results: boolean;
-    items: IUser[];
+    items: T[];
 }
