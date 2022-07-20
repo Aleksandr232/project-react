@@ -5,14 +5,15 @@ import { useDebaunce } from "../hooks/debaunce";
 export function Home() {
   const [search, setSearch] =useState('')
   const debaunced = useDebaunce(search)
+  const [dropdown, setDropdown]=useState(false)
   const { isLoading, isError, data } = useSearchUsersQuery(debaunced,{
     skip: debaunced.length < 3
   });
  
       
   useEffect(()=>{
-    console.log(debaunced)
-  },[debaunced])
+    setDropdown(debaunced.length > 3 && data?.length! > 0)
+  },[debaunced, data])
 
 
   return (
@@ -27,14 +28,14 @@ export function Home() {
           value={search}
           onChange={e=> setSearch(e.target.value)}
         />
-        <ul className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white">
+        {dropdown && <ul className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white">
           {isLoading && <p className="text-center">Загрузка...</p>}
           {data?.map(user=>(
             <li key={user.id}
             className='py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer'
             >{user.login}</li>
           ))}
-        </ul>
+        </ul>}
       </div>
     </div>
   );
