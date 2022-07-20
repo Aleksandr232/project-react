@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from "react";
 import { useSearchUsersQuery } from "../store/github/github.api";
+import { useLazyGetUserReposQuery } from "../store/github/github.api";
 import { useDebaunce } from "../hooks/debaunce";
 
 export function Home() {
@@ -10,11 +11,15 @@ export function Home() {
     skip: debaunced.length < 3
   });
  
+  const [fethRepos, {isLoading:reposLoading, data:repos}] = useLazyGetUserReposQuery()
       
   useEffect(()=>{
     setDropdown(debaunced.length > 3 && data?.length! > 0)
   },[debaunced, data])
 
+  const clickHandler=(username:string)=>{
+    fethRepos(username)
+  }
 
   return (
     <div className="flex justify-center pt-10 mx-auto h-screen w-screen">
@@ -32,10 +37,15 @@ export function Home() {
           {isLoading && <p className="text-center">Загрузка...</p>}
           {data?.map(user=>(
             <li key={user.id}
+            onClick={()=>clickHandler(user.login)}
             className='py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer'
             >{user.login}</li>
           ))}
         </ul>}
+        <div className="conatiner">
+            {reposLoading && <p className="text-center">Еще одна загрузка...</p>}
+            {repos?.map(repo => <p>{repo.url}</p>)}
+      </div>
       </div>
     </div>
   );
