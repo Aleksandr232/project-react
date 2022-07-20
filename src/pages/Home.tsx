@@ -5,7 +5,7 @@ import { useDebaunce } from "../hooks/debaunce";
 import { RepoCard } from "../components/RepoCard";
 
 export function Home() {
-  const [search, setSearch] =useState('Aleksandr232')
+  const [search, setSearch] =useState('')
   const debaunced = useDebaunce(search)
   const [dropdown, setDropdown]=useState(false)
   const { isLoading, isError, data } = useSearchUsersQuery(debaunced,{
