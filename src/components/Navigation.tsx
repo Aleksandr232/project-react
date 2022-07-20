@@ -8,7 +8,7 @@ export function Navigation(){
 
             <span>
                 <Link to='/' className="mr-2">Дом</Link>
-                <Link to='/favorites'>Избраное</Link>
+                <Link to='/favorites'>Избранное</Link>
             </span>
         </nav>
     )
