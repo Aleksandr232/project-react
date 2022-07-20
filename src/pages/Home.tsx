@@ -25,7 +25,7 @@ export function Home() {
 
   return (
     <div className="flex justify-center pt-10 mx-auto h-screen w-screen">
-      {isError && <p className="teaxt-center text-red-600">Ошибачка</p>}
+      {isError && <p className="teaxt-center text-red-600">Ошибачкаg</p>}
 
       <div className="relative w-[560px]">
         <input
