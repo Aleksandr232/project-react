@@ -2,6 +2,7 @@ import React,{useEffect, useState} from "react";
 import { useSearchUsersQuery } from "../store/github/github.api";
 import { useLazyGetUserReposQuery } from "../store/github/github.api";
 import { useDebaunce } from "../hooks/debaunce";
+import { RepoCard } from "../components/RepoCard";
 
 export function Home() {
   const [search, setSearch] =useState('')
@@ -19,6 +20,7 @@ export function Home() {
 
   const clickHandler=(username:string)=>{
     fethRepos(username)
+    setDropdown(false)
   }
 
   return (
@@ -44,7 +46,7 @@ export function Home() {
         </ul>}
         <div className="conatiner">
             {reposLoading && <p className="text-center">Еще одна загрузка...</p>}
-            {repos?.map(repo => <p>{repo.url}</p>)}
+            {repos?.map(repo => <RepoCard repo={repo} key={repo.id}/>)}
       </div>
       </div>
     </div>
